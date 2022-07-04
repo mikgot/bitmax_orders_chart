@@ -76,7 +76,7 @@ class Liq:
             data_buy = create_Alltrades_frame(self.all_buy)
             data_buy['size']= data_buy['size'].values.astype(np.int64)
 
-            figure(figsize=(14,4), dpi=80)
+            
             big_buy = data_buy[(data_buy['size']>=15000)&(data_buy['size']<50000)]
             bigS_buy = data_buy[(data_buy['size']>=50000)&(data_buy['size']<150000)]
             bigG_buy = data_buy[data_buy['size']>=150000]
@@ -107,14 +107,15 @@ class Liq:
             mostsbuyG = bigG_buy['size'].value_counts().index.tolist()[:3]
             bigbuyG_show =  bigG_buy[bigG_buy['size'].isin(mostsbuyG)]
             
-
+            figure(figsize=(14,4), dpi=80)
             sns.scatterplot(x="timestamp", y="price",color = 'mediumseagreen', data=bigsell_show,s=10)#,marker="+"
             sns.scatterplot(x="timestamp", y="price",color = 'green',  data=bigsellS_show,s=10)
             sns.scatterplot(x="timestamp", y="price",  color='darkslategray' ,data=bigsellG_show,s=120) 
             
             sns.scatterplot(x="timestamp", y="price", color='coral', data=bigbuy_show,s=10)#marker="+",
             sns.scatterplot(x="timestamp", y="price",  color='indianred' ,data=bigbuyS_show,s=10)       
-            sns.scatterplot(x="timestamp", y="price",  color='darkred' ,data=bigbuyG_show,s=120)          
+            sns.scatterplot(x="timestamp", y="price",  color='darkred' ,data=bigbuyG_show,s=120)  
+            
             plt.draw()
             plt.pause(pause_time)
             
@@ -130,6 +131,7 @@ class Liq:
             
              
         elif now.minute % short_period ==0  and self.last_minute != now.minute:
+            
             plt.close()
             plt.pause(pause_time)            
             
@@ -159,9 +161,6 @@ class Liq:
                                          data_buy],ignore_index=True, sort=False)              
             
             
-            
-
-            figure(figsize=(14,4), dpi=80)
             big_buy = data_buy[(data_buy['size']>=15000)&(data_buy['size']<50000)]
             bigS_buy = data_buy[(data_buy['size']>=50000)&(data_buy['size']<150000)]
             bigG_buy = data_buy[data_buy['size']>=150000]
@@ -192,14 +191,15 @@ class Liq:
             mostsbuyG = bigG_buy['size'].value_counts().index.tolist()[:3]
             bigbuyG_show =  bigG_buy[bigG_buy['size'].isin(mostsbuyG)]
             
-
+            figure(figsize=(14,4), dpi=80)
             sns.scatterplot(x="timestamp", y="price",color = 'mediumseagreen', data=bigsell_show,s=10)#,marker="+"
             sns.scatterplot(x="timestamp", y="price",color = 'green',  data=bigsellS_show,s=10)
             sns.scatterplot(x="timestamp", y="price",  color='darkslategray' ,data=bigsellG_show,s=120) 
             
             sns.scatterplot(x="timestamp", y="price", color='coral', data=bigbuy_show,s=10)#marker="+",
             sns.scatterplot(x="timestamp", y="price",  color='indianred' ,data=bigbuyS_show,s=10)       
-            sns.scatterplot(x="timestamp", y="price",  color='darkred' ,data=bigbuyG_show,s=120)          
+            sns.scatterplot(x="timestamp", y="price",  color='darkred' ,data=bigbuyG_show,s=120) 
+            
             plt.draw()
             plt.pause(pause_time)
      
@@ -218,7 +218,6 @@ class Liq:
 
     def on_open(self,ws):
         print("### connected ###")
-        plt.ion()
 
 def start():
         websocket._logging._logger.level = -99
